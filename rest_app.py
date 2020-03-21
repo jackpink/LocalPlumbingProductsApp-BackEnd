@@ -99,17 +99,32 @@ def get_toilet_suites_in_db():
     # Get all Toilet Suites from Database
     toilet_suites = []
 
-    for toilet in Product.objects:
-        toilet_suites.append(toilet.to_json())
+    for product in Product.objects:
+        if product.Product == 'toilet_suite':
+            toilet_suites.append(product.to_json())
 
     results = {'results': toilet_suites}
 
     return results, 200
 
-
-@app.route('/database/toilet_suites/<id>', methods=['GET'])
+@app.route('/database/basins', methods=['GET'])
 @cross_origin()
-def get_toilet_suites_in_db_with_id(id):
+def get_basins_in_db():
+    # Get all Toilet Suites from Database
+    basins = []
+
+    for product in Product.objects:
+        if product.Product == 'basin':
+            basins.append(product.to_json())
+
+    results = {'results': basins}
+
+    return results, 200
+
+
+@app.route('/database/<id>', methods=['GET'])
+@cross_origin()
+def get_products_in_db_with_id(id):
     # Get Toilet Suite with this id from Database
     toilet = Product.objects(id=id)
     print(toilet.to_json())
